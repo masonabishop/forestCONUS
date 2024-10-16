@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>US Forest Cover</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      crossorigin=""
+    />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- PapaParse library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js" crossorigin="anonymous"></script>
+    <!-- Chroma.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Tracking Forest Cover Change Across U.S. Counties</h1>
+    <h2 id="info-button">Info</h2>
+    <div id="modal">
+      <div class="container">
+        <span id="close-modal">&times;</span>
+        <!-- <h1>US Forest Cover Map</h1> -->
+        <p>This map visualizes forest cover percentages across U.S. counties from 2001 through 2021.
+          As urban sprawl exapnds, we might expect a decline in forest canopies. 
+          However, with initiatives like Trees Lexington and Reforest the Bluegrass in Lexington, KY, dedicated to growing urban 
+          forests, do we instead observe an increase in tree canopy over time?
+        </p>
+
+        <img src="Images/trees_rags.JPG" alt="Forest Image" class="modal-image" />
+      </div>
+    </div>
+    <div id="map"></div>
+    <div id="ui-controls">
+      <label for="year-slider">Year: <span id="current-year">2001</span></label>
+      <input id="year-slider" type="range" min="2001" max="2021" value="2001" step="5" class="year-slider" />
+    </div>
+    <div id="legend" class="legend"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <!-- External JS -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
