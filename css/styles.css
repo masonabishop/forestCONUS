@@ -22,27 +22,26 @@ label {
 
 /* Heading (h1) */
 h1 {
-  position: absolute;
+  width: 100%; /* Full-width heading */
+  position: relative; /* Relative to avoid overlap issues */
   z-index: 2000;
-  top: 10px;
+  margin-top: 20px; /* Create space above content */
   left: 0;
   right: 0;
   padding: 8px 15px;
-  margin: 0 auto;
   color: rgb(35, 139, 69, 1);
-  font-size: 3em;
+  font-size: 2.5em;
   background: rgb(255, 255, 255);
   border: rgba(183, 54, 37, 1);
   border-radius: 5px;
-  width: 1400px;
   text-align: center;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Info button (h2) */
-h2 {
+h2#info-button {
   position: absolute;
-  z-index: 650;
+  z-index: 1001; /* Ensure it stays above other elements */
   top: 100px;
   left: 250px;
   padding: 8px 15px;
@@ -56,13 +55,13 @@ h2 {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-h2:hover {
+/* h2:hover {
   background: rgb(72, 72, 72);
-}
+} */
 
-h2:active {
+/* h2:active {
   background: rgb(228, 175, 0);
-}
+} */
 
 /* UI Controls (slider container) */
 #ui-controls {
@@ -72,7 +71,7 @@ h2:active {
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  color: rgb(35, 139, 69, 1);
+  color: rgb(1, 100, 34);
   position: absolute;
   bottom: 30px;
   left: 250px;
@@ -96,28 +95,28 @@ h2:active {
   font-size: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   z-index: 500;
-
 }
 
 .legend span {
   display: inline-block;
   width: 20px;
   height: 20px;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 /* Modal container */
 #modal {
   display: none;
-  position: absolute;
-  z-index: 1000;
-  padding: 10px;
+  position: fixed; /* absolute */
+  z-index: 3000;
+  padding: 20px;
   left: 0;
-  top: 50px;
-  width: 100%;
+  top: 0;
+  width: 100%; /* Prevent overflow */
   height: 100%;
-  overflow: auto;
-  background-color: rgba(204, 236, 230, 0.363);
+  max-width: 100%; /* Ensure it fits on the screen */
+  overflow-y: auto; /* Allow scrolling if content is too large */
+  background-color: rgba(204, 236, 230, 0.521);
   color: whitesmoke;
   font-size: 1.5em;
 }
@@ -126,52 +125,55 @@ h2:active {
 .container {
   width: 600px;
   margin: 0 auto;
-  padding: 5px 20px;
+  padding: 5px 20px; /* top&bottom, left&right */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgba(92, 91, 87, 0.904);
   border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);/
+  border: 1px solid rgb(255, 255, 255);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal heading (h2) */
+#modal h2 {
+  font-size: 2em;
+  margin-bottom: 20px; /* Add space below the heading */
+  text-align: center;
+  color: rgb(255, 255, 255);
 }
 
 /* Close button */
 #modal span {
   position: absolute;
-  top: 7px;
-  right: 7px;
+  top: 10px;
+  right: 20px;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 2rem;
+  color: white;
 }
 
 /* Modal paragraphs */
 #modal p {
   font-size: 1.1rem;
-  line-height: 1.5rem;
-  margin-top: 20px;
-}
-
-/* Modal links */
-#modal a {
-  color: rgb(228, 175, 0);
+  line-height: 1.5rem; /* line spacing */
+  margin-top: 20px; /* Ensure space between heading and paragraph */
 }
 
 /* Modal images */
 .modal-image {
   display: block;
-  max-width: 75%; 
-  height: 50%;
+  max-width: 100%;
+  height: auto;
   margin: 20px auto;
   border-radius: 8px;
 }
 
-
+/* Media queries for screens smaller than 768px */
 @media (max-width: 768px) {
-  /* Styles for screens smaller than 768px (like tablets and mobile phones) */
   h1 {
-    font-size: 2em;
+    font-size: 1.5em;
     top: 5px;
     left: 10px;
     right: 10px;
@@ -194,18 +196,17 @@ h2:active {
   }
 }
 
-/* styles for small screens */
-@media (max-width: 576px) {
+/* Media queries for screens smaller than 400px */
+@media (max-width: 400px) {
   h1 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     top: 5px;
     left: 5px;
     right: 5px;
   }
 
-  .container {
-    width: 90%;
-    padding: 5px;
+  #modal h2 {
+    font-size: 1.5em; /* Reduce heading size for modal */
   }
 
   #ui-controls {
