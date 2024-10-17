@@ -22,21 +22,20 @@ label {
 
 /* Heading (h1) */
 h1 {
-  width: 100%; /* Full-width heading */
-  position: relative; /* Relative to avoid overlap issues */
+  width: auto; /* Set the width to 75% of the container */
+  position: relative; /* Maintain relative positioning */
   z-index: 2000;
-  margin-top: 20px; /* Create space above content */
-  left: 0;
-  right: 0;
+  margin: 20px auto; /* Center the element horizontally */
   padding: 8px 15px;
   color: rgb(35, 139, 69, 1);
   font-size: 2.5em;
   background: rgb(255, 255, 255);
   border: rgba(183, 54, 37, 1);
   border-radius: 5px;
-  text-align: center;
+  text-align: center; /* Ensure text inside the heading is centered */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Info button (h2) */
 h2#info-button {
@@ -107,23 +106,26 @@ h2#info-button {
 /* Modal container */
 #modal {
   display: none;
-  position: fixed; /* absolute */
+  position: fixed; /* Fix the modal relative to the viewport */
   z-index: 3000;
+  left: 50%; /* Center horizontally */
+  top: 150px;
+  transform: translateX(-50%); /* Center the modal horizontally */
+  width: 80%;
+  max-width: 800px;
+  height: auto;
+  max-height: 70vh;
   padding: 20px;
-  left: 0;
-  top: 0;
-  width: 100%; /* Prevent overflow */
-  height: 100%;
-  max-width: 100%; /* Ensure it fits on the screen */
-  overflow-y: auto; /* Allow scrolling if content is too large */
-  background-color: rgba(204, 236, 230, 0.521);
-  color: whitesmoke;
-  font-size: 1.5em;
+  background-color: rgba(92, 91, 87, 0.904);
+  border-radius: 10px; /* Add rounded corners */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Add shadow*/
+  overflow-y: auto; /* Enable scrolling if content exceeds the modal height */
+  color: rgb(255, 255, 255);
 }
 
 /* Modal content container */
 .container {
-  width: 600px;
+  width: auto;
   margin: 0 auto;
   padding: 5px 20px; /* top&bottom, left&right */
   position: fixed;
@@ -161,6 +163,17 @@ h2#info-button {
   margin-top: 20px; /* Ensure space between heading and paragraph */
 }
 
+#modal a {
+  color: inherit; /* Inherit the color from the surrounding text */
+  text-decoration: none; /* Remove the underline */
+}
+
+#modal a:hover {
+  text-decoration: underline; /* Optional: Add underline on hover if desired */
+  color: rgba(228, 175, 0, 1); /* Optional: Change color on hover */
+}
+
+
 /* Modal images */
 .modal-image {
   display: block;
@@ -169,6 +182,11 @@ h2#info-button {
   margin: 20px auto;
   border-radius: 8px;
 }
+
+.leaflet-top.leaflet-left {
+  top: 100px; /* Adjust this value to move the zoom buttons further down */
+}
+
 
 /* Media queries for screens smaller than 768px */
 @media (max-width: 768px) {
