@@ -33,6 +33,18 @@ addMapPanes.panes.forEach((pane, i) => {
 L.tileLayer(addMapPanes.tiles.base.url, addMapPanes.tiles.base.options).addTo(map);
 L.tileLayer(addMapPanes.tiles.labels.url, addMapPanes.tiles.labels.options).addTo(map);
 
+// Function to calculate the difference in forest cover from 2001
+function calculateDifferenceFrom2001(props, currentYear) {
+  const cover2001 = props && props["2001"] ? Number(props["2001"]) : null;
+  const coverCurrent = props && props[currentYear] ? Number(props[currentYear]) : null;
+  
+  if (cover2001 !== null && coverCurrent !== null) {
+    const difference = coverCurrent - cover2001;
+    return difference.toFixed(2); // Round to two decimal places
+  }
+  return "No data"; // In case data is missing for either year
+}
+
 // Add the Info button functionality
 document.getElementById("info-button").addEventListener("click", function () {
   document.getElementById("modal").style.display = "block";
@@ -43,12 +55,14 @@ document.getElementById("close-modal").addEventListener("click", function () {
   document.getElementById("modal").style.display = "none";
 });
 
-window.onclick = function (event) {
+// Close the modal when clicking outside of it
+window.addEventListener('click', function (event) {
   const modal = document.getElementById("modal");
-  if (event.target === modal) {
+  const container = document.querySelector(".container");
+  if (event.target === modal && event.target !== container) {
     modal.style.display = "none";
   }
-};
+});
 
 // Function to add state boundaries
 function drawStateBoundaries(stateGeojson) {
@@ -96,9 +110,19 @@ function drawMap(counties, colorize) {
           const props = feature.properties.landData;
           const currentYear = document.getElementById("year-slider").value;
           const countyName = feature.properties.County ? feature.properties.County : "Unknown"; // Fetch County from CSV
-          const popupContent = `${countyName} County: ${
-            props && props[currentYear] ? props[currentYear] + "%" : "No data"
-          }`; // Display county name and data
+          
+          // Calculate the difference from 2001
+          const difference = calculateDifferenceFrom2001(props, currentYear);
+          
+          // Only add '%' if difference is a number
+          const differenceDisplay = isNaN(difference) || difference === "No data" ? difference : `${difference}%`;
+          
+          const popupContent = `
+            <strong>${countyName} County</strong><br/>
+            Forest Cover for ${currentYear}: ${props && props[currentYear] ? props[currentYear] + "%" : "No data"}<br/>
+            Difference in Forest Cover from 2001: ${differenceDisplay}
+          `;
+          
           layer.bindTooltip(popupContent).openTooltip();
         },
         mouseout: function () {
@@ -113,7 +137,7 @@ function drawMap(counties, colorize) {
   updateMap(dataLayer, colorize, "2001");
 }
 
-// Draw the legend
+
 // Draw the legend
 function drawLegend(breaks, colorize) {
   const legend = document.getElementById("legend");
@@ -135,7 +159,6 @@ function drawLegend(breaks, colorize) {
   // Set the legend HTML
   legend.innerHTML = legendHTML;
 }
-
 
 // Process data and join with GeoJSON
 function processData(counties, data) {
