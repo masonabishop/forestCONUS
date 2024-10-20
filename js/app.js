@@ -97,12 +97,13 @@ function updateMap(dataLayer, colorize, currentYear) {
     const value = props && props[currentYear] ? Number(props[currentYear]) : null;
 
     const fillColor = value !== null && !isNaN(value)
-      ? colorize(value).hex()
+      ? colorize(value).hex() // Use the same colorize function as the legend
       : "#555"; // Gray for "no data"
 
     layer.setStyle({ fillColor });
   });
 }
+
 
 // Create the slider UI and update display
 function createSliderUI(dataLayer, colorize) {
@@ -194,14 +195,14 @@ function drawMap(counties, colorize) {
 // Draw the legend
 function drawLegend(breaks, colorize) {
   const legend = document.getElementById("legend");
-  let legendHTML = "<strong>Forest Cover</strong><br/>";
+  let legendHTML = "<h3>Forest Cover</h3><br/>"; // Wrap the title in <h3>
 
-  // Add each color break with a small adjustment to avoid overlap
+  // Add each color break with consistent styling
   breaks.forEach((breakpoint, i) => {
     const next = breaks[i + 1];
     if (next) {
       legendHTML += `<span style="background:${colorize(breakpoint).hex()}"></span> 
-        ${breakpoint.toFixed(2)}% – ${(next - 0.01).toFixed(2)}%<br/>`; // Adjust by 0.01 to avoid overlap
+        ${breakpoint.toFixed(2)}% – ${next.toFixed(2)}%<br/>`;
     }
   });
 
@@ -211,6 +212,8 @@ function drawLegend(breaks, colorize) {
   // Set the legend HTML
   legend.innerHTML = legendHTML;
 }
+
+
 
 // Process data and join with GeoJSON
 function processData(counties, data) {
