@@ -29,32 +29,38 @@
         <span id="close-modal">&times;</span>
         <h2>Map Info</h2>
         <p>
-          This map visualizes forest canopy changes across U.S. counties, providing valuable
+          This map visualizes forest canopy changes across U.S. counties over a two decade period, providing valuable
           insights for local environmental organizations like <a href="https://www.lexingtonky.gov/reforest-bluegrass" target="_blank">Reforest the Bluegrass</a>,
-           <a href="https://ufi.ca.uky.edu/" target="_blank">The Urban Forest Initiative</a>, and
-           <a href="https://www.treeslexington.org/" target="_blank">Trees Lexington</a> to measure
-           their efforts and identify trends in canopy growth within their jurisdictions. 
-           Similar organizations across the nation can use this map to assess the effectiveness
-           of their conservation or forestry initiatives, making it a versatile resource for supporting
-           sustainable urban development.
+          <a href="https://ufi.ca.uky.edu/" target="_blank">The Urban Forest Initiative</a>, and
+          <a href="https://www.treeslexington.org/" target="_blank">Trees Lexington</a> to measure
+          their efforts and identify trends in canopy growth within their jurisdictions. 
+          Similar organizations across the nation can use this map to assess the effectiveness
+          of their conservation or forestry initiatives, making it a versatile resource for supporting
+          sustainable urban development.
         </p>
+        <div class="image-container">
+          <!-- Add the 'modal-image' class to the image -->
+          <img class="modal-image" src="Images/reforest.jpg" alt="Tree Planting Event">
+          <p class="image-credit">
+              Photo courtesy of 
+              <a href="https://www.lexingtonky.gov/news/04-06-2023/volunteer-plant-trees-reforest-bluegrass" target="_blank" rel="noopener noreferrer">
+                  Reforest the Bluegrass
+              </a>
+          </p>
+        </div>
         <p>
-          Use the slider to select a year between 2001-2021. The map will update to show forest 
-          cover for that year. The data is collected from DATABASE and is collected every five 
-          years. The data also combines deciduous, evergreen, mixed forest types.
+          Use the slider to select a year between 2001-2021. The map will update, showing how much of the
+          land in that county was considered forest cover for that year. The data is collected every 
+          five years and combines deciduous, evergreen, & mixed forest types.
         </p>
         <p>
           Hover over or click on a county to view the percentage of forest cover for the 
-          selected year.
+          selected year, as well as a comparison to the previous data set.
         </p>
 
-          <img src="Images/reforest.jpg" alt="Reforest the Bluegrass" class="modal-image">
-        </a>
-
-        <p>Data from <a href="https://ephtracking.cdc.gov/DataExplorer" target="_blank">Environmental Public Health Tracking</a>
-          
-        </p>
-        
+        <ul>
+          <li>Data from <a href="https://ephtracking.cdc.gov/DataExplorer" target="_blank">Environmental Public Health Tracking</a></li>
+        </ul>
       </div>
     </div>
     <div id="map"></div>

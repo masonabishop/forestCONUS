@@ -22,30 +22,28 @@ label {
 
 /* Heading (h1) */
 h1 {
-  width: auto; /* Set the width to 75% of the container */
-  position: relative; /* Maintain relative positioning */
+  width: auto;
+  position: relative;
   z-index: 2000;
-  margin: 20px auto; /* Center the element horizontally */
+  margin: 20px auto;
   padding: 8px 15px;
-  color: rgb(35, 139, 69, 1);
+  color: rgb(0, 0, 0);
   font-size: 2.5em;
   background: rgb(255, 255, 255);
-  border: rgba(183, 54, 37, 1);
   border-radius: 5px;
-  text-align: center; /* Ensure text inside the heading is centered */
+  text-align: center;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-
 
 /* Info button (h2) */
 h2#info-button {
   position: absolute;
-  z-index: 1001; /* Ensure it stays above other elements */
+  z-index: 1001;
   top: 100px;
   left: 250px;
   padding: 8px 15px;
   margin: 0;
-  color: rgb(35, 139, 69, 1);
+  color: rgb(1, 100, 34);
   font-size: 1.2em;
   text-transform: uppercase;
   background: rgba(255, 255, 255, 0.8);
@@ -54,18 +52,42 @@ h2#info-button {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-/* h2:hover {
-  background: rgb(72, 72, 72);
-} */
+/* Image container and images */
+.image-container {
+  width: 100%; /* Ensure the container takes full width */
+  text-align: center; /* Center content inside the container */
+}
 
-/* h2:active {
-  background: rgb(228, 175, 0);
-} */
+.image-container img,
+.modal-image {
+  display: block;
+  width: 75%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+/* Image credit */
+.image-credit {
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 0px;
+  text-align: center;
+}
+
+.image-credit a {
+  color: #666;
+  text-decoration: none;
+}
+
+.image-credit a:hover {
+  text-decoration: underline;
+}
 
 /* UI Controls (slider container) */
 #ui-controls {
   font-family: Lato, sans-serif;
-  width: 176px;
+  width: 90px;
   padding: 8px 25px 8px 15px;
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -106,50 +128,38 @@ h2#info-button {
 /* Modal container */
 #modal {
   display: none;
-  position: fixed; /* Fix the modal relative to the viewport */
+  position: fixed;
   z-index: 3000;
-  left: 50%; /* Center horizontally */
-  top: 150px;
-  transform: translateX(-50%); /* Center the modal horizontally */
-  width: auto;
+  left: 50%;
+  top: 100px;
+  transform: translateX(-50%);
+  width: 75%;
   max-width: 800px;
-  height: auto;
-  max-height: 70vh;
+  max-height: 80vh;
   padding: 20px;
-  background-color: rgba(92, 91, 87, 0.904);
-  border-radius: 10px; /* Add rounded corners */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Add shadow*/
-  overflow-y: auto; /* Enable scrolling if content exceeds the modal height */
-  color: rgb(255, 255, 255);
+  background-color: rgba(1, 100, 34, 0.75);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  color: rgb(0, 0, 0);
 }
-
-/* .container {
-  padding: 20px; /* Add padding to the content */
-  width: auto; /* Ensure content auto-fits */
-} */
-
 
 /* Modal content container */
 .container {
-  width: auto;
+  width: 90%;
   margin: 0 auto;
-  padding: 5px 20px; /* top&bottom, left&right */
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(92, 91, 87, 0.904);
-  border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
+  padding: 5px 20px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.904);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Modal heading (h2) */
 #modal h2 {
   font-size: 2em;
-  margin-bottom: 20px; /* Add space below the heading */
+  margin-bottom: 20px;
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 /* Close button */
@@ -159,40 +169,30 @@ h2#info-button {
   right: 20px;
   cursor: pointer;
   font-size: 2rem;
-  color: white;
+  color: rgba(1, 100, 34, 0.75);
 }
 
 /* Modal paragraphs */
 #modal p {
   font-size: 1.1rem;
-  line-height: 1.5rem; /* line spacing */
-  margin-top: 20px; /* Ensure space between heading and paragraph */
+  line-height: 1.5rem;
+  margin-top: 20px;
 }
 
 #modal a {
-  color: inherit; /* Inherit the color from the surrounding text */
-  text-decoration: none; /* Remove the underline */
+  color: rgba(1, 100, 34);
+  text-decoration: none;
 }
 
 #modal a:hover {
-  text-decoration: underline; /* Optional: Add underline on hover if desired */
-  color: rgba(228, 175, 0, 1); /* Optional: Change color on hover */
+  text-decoration: underline;
+  color: rgba(1, 100, 34);
 }
 
-
-/* Modal images */
-.modal-image {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 20px auto;
-  border-radius: 8px;
-}
-
+/* Leaflet control buttons */
 .leaflet-top.leaflet-left {
-  top: 100px; /* Adjust this value to move the zoom buttons further down */
+  top: 100px;
 }
-
 
 /* Media queries for screens smaller than 768px */
 @media (max-width: 768px) {
@@ -230,7 +230,7 @@ h2#info-button {
   }
 
   #modal h2 {
-    font-size: 1.5em; /* Reduce heading size for modal */
+    font-size: 1.5em;
   }
 
   #ui-controls {

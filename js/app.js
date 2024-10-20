@@ -37,9 +37,22 @@ L.tileLayer(addMapPanes.tiles.labels.url, addMapPanes.tiles.labels.options).addT
 function calculateDifferenceFrom2001(props, currentYear) {
   const cover2001 = props && props["2001"] ? Number(props["2001"]) : null;
   const coverCurrent = props && props[currentYear] ? Number(props[currentYear]) : null;
-  
+
   if (cover2001 !== null && coverCurrent !== null) {
     const difference = coverCurrent - cover2001;
+    return difference.toFixed(2); // Round to two decimal places
+  }
+  return "No data"; // In case data is missing for either year
+}
+
+// Function to calculate the difference from the previous 5 years
+function calculateDifferenceFromPrevious5Years(props, currentYear) {
+  const previousYear = (parseInt(currentYear) - 5).toString();
+  const coverPrevious = props && props[previousYear] ? Number(props[previousYear]) : null;
+  const coverCurrent = props && props[currentYear] ? Number(props[currentYear]) : null;
+
+  if (coverPrevious !== null && coverCurrent !== null) {
+    const difference = coverCurrent - coverPrevious;
     return difference.toFixed(2); // Round to two decimal places
   }
   return "No data"; // In case data is missing for either year
@@ -81,7 +94,12 @@ function drawStateBoundaries(stateGeojson) {
 function updateMap(dataLayer, colorize, currentYear) {
   dataLayer.eachLayer(function (layer) {
     const props = layer.feature.properties.landData;
-    const fillColor = props && props[currentYear] ? colorize(Number(props[currentYear])).hex() : "#555";
+    const value = props && props[currentYear] ? Number(props[currentYear]) : null;
+
+    const fillColor = value !== null && !isNaN(value)
+      ? colorize(value).hex()
+      : "#555"; // Gray for "no data"
+
     layer.setStyle({ fillColor });
   });
 }
@@ -101,7 +119,14 @@ function createSliderUI(dataLayer, colorize) {
 function drawMap(counties, colorize) {
   const dataLayer = L.geoJson(counties, {
     style: function (feature) {
-      return { color: "#36454F", weight: 0.5, fillOpacity: 0.7 };
+      // Check if landData and 2001 exist for the feature before applying style
+      const hasData = feature.properties.landData && feature.properties.landData["2001"];
+      return {
+        color: "#36454F",
+        weight: 0.5,
+        fillOpacity: 0.7,
+        fillColor: hasData ? colorize(Number(feature.properties.landData["2001"])).hex() : "#555" // Gray for "no data"
+      };
     },
     onEachFeature: function (feature, layer) {
       layer.on({
@@ -109,25 +134,54 @@ function drawMap(counties, colorize) {
           const layer = e.target;
           const props = feature.properties.landData;
           const currentYear = document.getElementById("year-slider").value;
-          const countyName = feature.properties.County ? feature.properties.County : "Unknown"; // Fetch County from CSV
-          
-          // Calculate the difference from 2001
-          const difference = calculateDifferenceFrom2001(props, currentYear);
-          
-          // Only add '%' if difference is a number
-          const differenceDisplay = isNaN(difference) || difference === "No data" ? difference : `${difference}%`;
-          
+          const countyName = feature.properties.County ? feature.properties.County : "Unknown"; // Fetch County name
+
+          // Calculate the difference from 2001 and from previous 5 years
+          const differenceFrom2001 = calculateDifferenceFrom2001(props, currentYear);
+          const differenceFromPrevious5Years = calculateDifferenceFromPrevious5Years(props, currentYear);
+
+          // Ensure percentages are shown correctly or display "No Data"
+          const differenceFrom2001Display = isNaN(differenceFrom2001) || differenceFrom2001 === "No data"
+            ? differenceFrom2001
+            : `${differenceFrom2001}%`;
+
+          const differenceFromPrevious5YearsDisplay = isNaN(differenceFromPrevious5Years) || differenceFromPrevious5Years === "No data"
+            ? differenceFromPrevious5Years
+            : `${differenceFromPrevious5Years}%`;
+
+          // Tooltip content
           const popupContent = `
             <strong>${countyName} County</strong><br/>
-            Forest Cover for ${currentYear}: ${props && props[currentYear] ? props[currentYear] + "%" : "No data"}<br/>
-            Difference in Forest Cover from 2001: ${differenceDisplay}
+            Forest Cover in ${currentYear}: ${props && props[currentYear] ? props[currentYear] + "%" : "No data"}<br/>
+            Difference in Forest Cover from 2001: ${differenceFrom2001Display}<br/>
+            Difference in Forest Cover from Previous 5 Years: ${differenceFromPrevious5YearsDisplay}
           `;
-          
+
+          // Bind the tooltip with the content
           layer.bindTooltip(popupContent).openTooltip();
+
+          // Highlight the county on hover: thicker border and slightly higher opacity
+          layer.setStyle({
+            weight: 3, // Thicker border
+            color: '#666', // Highlight border color
+            fillOpacity: 0.9 // Slightly increase opacity on hover
+          });
+
+          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+          }
         },
-        mouseout: function () {
+        mouseout: function (e) {
+          const layer = e.target;
           layer.closeTooltip();
-        },
+
+          // Revert to the original style after hover
+          layer.setStyle({
+            weight: 0.5, // Reset border thickness
+            color: "#36454F", // Reset border color
+            fillOpacity: 0.7 // Reset opacity
+          });
+        }
       });
     },
     pane: "data",
@@ -137,19 +191,17 @@ function drawMap(counties, colorize) {
   updateMap(dataLayer, colorize, "2001");
 }
 
-
 // Draw the legend
 function drawLegend(breaks, colorize) {
   const legend = document.getElementById("legend");
   let legendHTML = "<strong>Forest Cover</strong><br/>";
-  
-  // Add each color break
+
+  // Add each color break with a small adjustment to avoid overlap
   breaks.forEach((breakpoint, i) => {
     const next = breaks[i + 1];
     if (next) {
-      legendHTML += `<span style="background:${colorize(breakpoint).hex()}"></span> ${breakpoint.toFixed(
-        2
-      )}% – ${next.toFixed(2)}%<br/>`;
+      legendHTML += `<span style="background:${colorize(breakpoint).hex()}"></span> 
+        ${breakpoint.toFixed(2)}% – ${(next - 0.01).toFixed(2)}%<br/>`; // Adjust by 0.01 to avoid overlap
     }
   });
 
@@ -186,7 +238,8 @@ function processData(counties, data) {
     }
   });
 
-  const breaks = chroma.limits(landRates, "q", 5); // Quantile breaks
+  // Use Jenks Natural Breaks (k) for classification
+  const breaks = chroma.limits(landRates, "k", 5); // Jenks Natural Breaks
   const colorize = chroma.scale(chroma.brewer.BuGn).classes(breaks).mode("lab");
 
   drawMap(counties, colorize);
