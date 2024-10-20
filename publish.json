@@ -1,0 +1,8 @@
+{
+    "title": "Forest Canopy Trends in the Contiguous United States",
+    "info": "This project visualizes forest cover change in the continental U.S. from 2001 to 2021, allowing users to explore forest trends by county.",
+    "coordinates": [39.8283, -98.5795],
+    "author": "masonabishop",
+    "link": "https://masonabishop.github.io/forestCONUS/"
+  }
+  
