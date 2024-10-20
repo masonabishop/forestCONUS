@@ -43,7 +43,7 @@ h2#info-button {
   left: 250px;
   padding: 8px 15px;
   margin: 0;
-  color: rgb(1, 100, 34);
+  color: rgb(0, 0, 0);
   font-size: 1.2em;
   text-transform: uppercase;
   background: rgba(255, 255, 255, 0.8);
@@ -54,8 +54,8 @@ h2#info-button {
 
 /* Image container and images */
 .image-container {
-  width: 100%; /* Ensure the container takes full width */
-  text-align: center; /* Center content inside the container */
+  width: 100%;
+  text-align: center;
 }
 
 .image-container img,
@@ -84,7 +84,7 @@ h2#info-button {
   text-decoration: underline;
 }
 
-/* UI Controls (slider container) */
+/* UI Controls */
 #ui-controls {
   font-family: Lato, sans-serif;
   width: 90px;
@@ -92,9 +92,9 @@ h2#info-button {
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  color: rgb(1, 100, 34);
+  color: rgb(0, 0, 0);
   position: absolute;
-  bottom: 30px;
+  bottom: 100px;
   left: 250px;
   z-index: 1000;
 }
@@ -107,7 +107,7 @@ h2#info-button {
 /* Legend */
 .legend {
   position: absolute;
-  bottom: 30px;
+  bottom: 100px;
   right: 250px;
   width: auto;
   background: white;
@@ -115,7 +115,7 @@ h2#info-button {
   border-radius: 5px;
   font-size: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  z-index: 500;
+  z-index: 1000;
 }
 
 .legend span {
@@ -133,11 +133,23 @@ h2#info-button {
   margin: 0;
   padding: 0;
   text-align: center;
-  color: rgb(1, 100, 34);
+  color: rgb(0, 0, 0);
 }
 
-
-
+#map-footer {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 0px;
+  font-size: 16px;
+  z-index: 600;
+  color: #ffffff;
+  height: 50px;
+  
+}
 
 /* Modal container */
 #modal {
@@ -149,9 +161,9 @@ h2#info-button {
   transform: translateX(-50%);
   width: 75%;
   max-width: 800px;
-  max-height: 80vh;
+  max-height: 75vh;
   padding: 20px;
-  background-color: rgba(1, 100, 34, 0.75);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
@@ -164,9 +176,10 @@ h2#info-button {
   margin: 0 auto;
   padding: 5px 20px;
   position: relative;
-  background: rgba(255, 255, 255, 0.904);
+  background: rgba(255, 255, 255, 1);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Modal heading (h2) */
 #modal h2 {
@@ -185,6 +198,7 @@ h2#info-button {
   font-size: 2rem;
   color: rgba(1, 100, 34, 0.75);
 }
+
 
 /* Modal paragraphs */
 #modal p {

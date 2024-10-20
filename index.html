@@ -22,7 +22,7 @@
   </head>
 
   <body>
-    <h1>Tracking Forest Cover Change Across U.S. Counties</h1>
+    <h1>Forest Canopy Trends in the Contiguous United States</h1>
     <h2 id="info-button">Info</h2>
     <div id="modal" class="modal">
       <div class="container">
@@ -39,7 +39,6 @@
           sustainable urban development.
         </p>
         <div class="image-container">
-          <!-- Add the 'modal-image' class to the image -->
           <img class="modal-image" src="Images/reforest.jpg" alt="Tree Planting Event">
           <p class="image-credit">
               Volunteers plant trees during annual reforestation event. Photo courtesy of 
@@ -57,13 +56,21 @@
           Hover over or click on a county to view the percentage of forest cover for the 
           selected year, as well as a comparison to the previous data set.
         </p>
+        <hr>
 
         <ul>
-          <li>Data from <a href="https://ephtracking.cdc.gov/DataExplorer" target="_blank">Environmental Public Health Tracking</a></li>
+          <li>Data from <a href="https://ephtracking.cdc.gov/DataExplorer" target="_blank">CDC's Environmental Public Health Tracking</a></li>
+          <li>Authored by <a href="https://github.com/masonabishop" target="_blank"> Mason Bishop</a></li>
+          <li>Follow me: <a href="https://x.com/_geoMSON" target="_blank">@_geoMSON</a> </li>
         </ul>
       </div>
     </div>
     <div id="map"></div>
+
+    <footer id="map-footer">
+      <p>October 2024 | New Maps Plus</p>
+    </footer>
+
     <div id="ui-controls">
       <label for="year-slider">Year: <span id="current-year">2001</span></label>
       <input id="year-slider" type="range" min="2001" max="2021" value="2001" step="5" class="year-slider" />
