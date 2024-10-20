@@ -71,8 +71,7 @@ document.getElementById("close-modal").addEventListener("click", function () {
 // Close the modal when clicking outside of it
 window.addEventListener('click', function (event) {
   const modal = document.getElementById("modal");
-  const container = document.querySelector(".container");
-  if (event.target === modal && event.target !== container) {
+  if (event.target === modal) {
     modal.style.display = "none";
   }
 });
@@ -212,8 +211,6 @@ function drawLegend(breaks, colorize) {
   // Set the legend HTML
   legend.innerHTML = legendHTML;
 }
-
-
 
 // Process data and join with GeoJSON
 function processData(counties, data) {
